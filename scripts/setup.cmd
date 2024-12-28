@@ -1,0 +1,1 @@
+deno add jsr:@std/assert

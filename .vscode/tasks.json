@@ -12,9 +12,29 @@
             "problemMatcher": []
         },
         {
-            "label": "Run Tests",
+            "label": "Run Deno Tests",
             "type": "shell",
             "command": "deno test -A",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Deno Linter",
+            "type": "shell",
+            "command": "deno lint",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Pre-push tasks",
+            "type": "shell",
+            "command": "deno lint && deno test -A",
             "group": {
                 "kind": "test",
                 "isDefault": true

@@ -1,4 +1,4 @@
-import { tokenize } from "../Source/lexer.ts";
+import { tokenize } from "../Source/frontend/lexer.ts";
 
 Deno.test("Lexer test", async () => {
     const source = await Deno.readTextFile("./Test/Sources/lexer_test.txt");;
