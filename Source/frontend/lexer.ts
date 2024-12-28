@@ -1,5 +1,6 @@
 export enum TokenType {
 	// Literal Types
+	Null,
 	Number,
 	Identifier,
 
@@ -17,7 +18,8 @@ export enum TokenType {
 }
 
 const KEYWORDS: Record<string, TokenType> = {
-	"let": TokenType.Let,
+	let: TokenType.Let,
+	null: TokenType.Null,
 };
 
 function token(value = "", type: TokenType): Token {
