@@ -4,7 +4,7 @@
         {
             "label": "Run Interpreter",
             "type": "shell",
-            "command": "deno run -A Source/lexer.ts",
+            "command": "deno run -A Source/main.ts ${input:arg}",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -21,5 +21,13 @@
             },
             "problemMatcher": []
         }
-    ]
+    ],
+    "inputs": [
+    {
+      "id": "arg",
+      "type": "promptString",
+      "description": "Enter the file to interpret",
+      "default": "./Test/Sources/main.txt"
+    }
+  ]
 }
