@@ -1,4 +1,5 @@
 import Parser from "./frontend/parser.ts";
+import { evaluate } from "./runtime/interpreter.ts";
 
 repl();
 
@@ -9,6 +10,7 @@ function repl() {
         const input = prompt("> ");
 
         if (!input) {
+            console.log("Please enter a valid input");
             Deno.exit(1);
         }
         if (input.includes("exit")) {
@@ -21,5 +23,7 @@ function repl() {
 
         const program = parser.produceAST(input);
         console.log(program);
+        const result = evaluate(program);
+        console.log(result.value);
     }
 }

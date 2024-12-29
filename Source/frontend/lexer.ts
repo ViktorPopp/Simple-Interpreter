@@ -73,7 +73,7 @@ export function tokenize(sourceCode: string): Token[] {
 					ident += src.shift();
 
 				const reserved = KEYWORDS[ident];
-				if (reserved == undefined)
+				if (typeof reserved == "number")
 					tokens.push(token(ident, TokenType.Identifier));
 				else
 					tokens.push(token(ident, reserved));
