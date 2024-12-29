@@ -1,11 +1,20 @@
 import Parser from "./frontend/parser.ts";
+import Environment from "./runtime/environment.ts";
 import { evaluate } from "./runtime/interpreter.ts";
+import { createBoolean, createNull, createNumber } from "./runtime/values.ts";
 
 repl();
 
 function repl() {
     const parser = new Parser();
+    const env = new Environment();
     console.log("REPL v0.0.1-alpha-1");
+
+    env.declareVariable("pi", createNumber(Math.PI));
+    env.declareVariable("true", createBoolean(true));
+    env.declareVariable("false", createBoolean(false));
+    env.declareVariable("null", createNull());
+
     while (true) {
         const input = prompt("> ");
 
@@ -22,8 +31,7 @@ function repl() {
         }
 
         const program = parser.produceAST(input);
-        console.log(program);
-        const result = evaluate(program);
-        console.log(result.value);
+        const result = evaluate(program, env);
+        console.log(result);
     }
 }

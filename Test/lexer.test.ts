@@ -1,9 +1,16 @@
-import { tokenize } from "../Source/frontend/lexer.ts";
+import { assertEquals } from "@std/assert";
+import { tokenize, TokenType } from "../Source/frontend/lexer.ts";
 
-Deno.test("Lexer test", async () => {
-    const source = await Deno.readTextFile("./Test/Sources/lexer_test.txt");;
-    console.log(`Program to test: \"${source}\"`);
-    for (const token of tokenize(source)) {
-        console.log(token);
-    }
-})
+// Lexer tests
+Deno.test("Lexer tokenizes numbers", () => {
+    const tokens = tokenize("123");
+    assertEquals(tokens[0].type, TokenType.Number);
+    assertEquals(tokens[0].value, "123");
+});
+
+Deno.test("Lexer tokenizes basic math", () => {
+    const tokens = tokenize("1 + 2 * 3");
+    assertEquals(tokens[0].type, TokenType.Number);
+    assertEquals(tokens[1].type, TokenType.BinaryOperator); 
+    assertEquals(tokens[3].type, TokenType.BinaryOperator);
+});
