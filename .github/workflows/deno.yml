@@ -27,3 +27,41 @@ jobs:
 
       - name: Run tests
         run: deno test -A
+
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - platform: windows
+            target: x86_64-pc-windows-msvc
+            suffix: .exe
+          - platform: macos 
+            target: x86_64-apple-darwin
+            suffix: ''
+          - platform: linux
+            target: x86_64-unknown-linux-gnu
+            suffix: ''
+    
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: vx.x.x
+
+      - name: Build executable
+        run: |
+          mkdir -p dist
+          deno compile --allow-all --target ${{ matrix.target }} -o dist/interpreter-${{ matrix.platform }}${{ matrix.suffix }} Source/main.ts
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: interpreter-${{ matrix.platform }}
+          path: dist/interpreter-${{ matrix.platform }}${{ matrix.suffix }}
+          retention-days: 5
