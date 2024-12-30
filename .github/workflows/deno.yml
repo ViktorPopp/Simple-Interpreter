@@ -1,4 +1,4 @@
-name: Deno
+name: Deno Testing & Linting
 
 on:
   push:
@@ -56,12 +56,12 @@ jobs:
 
       - name: Build executable
         run: |
-          mkdir -p dist
-          deno compile --allow-all --target ${{ matrix.target }} -o dist/interpreter-${{ matrix.platform }}${{ matrix.suffix }} Source/main.ts
+          mkdir -p build
+          deno compile --allow-all --target ${{ matrix.target }} -o build/interpreter-${{ matrix.platform }}${{ matrix.suffix }} Source/main.ts
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: interpreter-${{ matrix.platform }}
-          path: dist/interpreter-${{ matrix.platform }}${{ matrix.suffix }}
-          retention-days: 5
+          name: ${{ matrix.platform }}
+          path: build/interpreter-${{ matrix.platform }}${{ matrix.suffix }}
+          retention-days: 21
